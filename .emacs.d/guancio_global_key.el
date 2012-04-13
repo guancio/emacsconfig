@@ -82,3 +82,5 @@
 ;; (global-set-key (kbd "C-<tab>") 'ispell-word)
 ;; (global-set-key (kbd "M-h") 'lookup-word-definition)
 
+
+(provide 'guancio_global_key)
