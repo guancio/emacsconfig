@@ -115,23 +115,21 @@ If a region is active (a phrase), lookup that phrase."
 (setq dictem-use-content-history t)
 
 
-;; Used to check if autocomplete was activated independently by the hook
-(make-variable-buffer-local 'ac-independently)
-
-;; BUG: must backup the previous state of ac-source
+;; BUG: must remove ac if no source is used
+;; BUG: Work only if you move on the second character of the word
 ;; TODO: Should be usefoul to complete the word while typing
 ;; Automatically flyspell a buffer when enablyng flyspell
 (add-hook 'flyspell-mode-hook 
 	  (lambda ()
 	    (if flyspell-mode
 		(progn
-		  (setq ac-independently auto-complete-mode)
 		  (flyspell-buffer)
 		  (auto-complete-mode 1)
-		  (setq ac-sources '(ac-source-ispell))
+		  (setq ac-sources (append ac-sources '(ac-source-ispell)))
 		  )
-	      (if (not ac-independently) (auto-complete-mode 0))
-	      )))
+	      (progn
+		(setq ac-sources (remove '(ac-source-ispell) ac-sources))
+	      ))))
 
 
 ;; I cannot understant wich words is found

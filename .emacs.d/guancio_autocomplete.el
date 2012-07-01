@@ -16,4 +16,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; BUG: Problems when resizing the text
+;; BUG: Find a way to sort different source of completition
 (provide 'guancio_autocomplete)
