@@ -50,6 +50,7 @@ If a region is active (a phrase), lookup that phrase."
 (setq dictem-use-content-history t)
 
 
+;; I cannot understant wich words is found
 (global-set-key "\M-d" 'dictem-run-define)
 (global-set-key (kbd "M-w M-i M-k M-i") 'lookup-word-definition)
 (define-key dictem-mode-map (kbd "C-<down>") 'dictem-next-link)

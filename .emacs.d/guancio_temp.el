@@ -9,7 +9,6 @@
 
 
 (require 'guancio_autocomplete)
-(require 'guancio_spell)
 (require 'guancio_latex)
 ;; (require 'guancio_python)
 
