@@ -12,3 +12,5 @@
 (require 'guancio_clean_menu)
 
 (require 'guancio_spell)
+
+(require 'guancio_autocomplete)

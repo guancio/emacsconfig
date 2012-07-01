@@ -15,4 +15,5 @@
 ;;; End Auto Completion                                                                                        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; BUG: Problems when resizing the text
 (provide 'guancio_autocomplete)

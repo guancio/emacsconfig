@@ -8,7 +8,6 @@
 ;;  '(safe-local-variable-values (quote ((tex-master . "../main") (TeX-master . t))))
 
 
-(require 'guancio_autocomplete)
 (require 'guancio_latex)
 ;; (require 'guancio_python)
 

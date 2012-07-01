@@ -81,9 +81,5 @@
 (global-set-key "\M-b" 'smart-compile)
 (global-set-key "\M-s" 'speedbar)
 
-;; Others
-;; (global-set-key (kbd "C-<tab>") 'ispell-word)
-;; (global-set-key (kbd "M-h") 'lookup-word-definition)
-
 
 (provide 'guancio_global_key)
