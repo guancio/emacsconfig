@@ -2,6 +2,7 @@
 (global-set-key "\C-x\C-c" nil) ;; Old Quit
 (global-set-key "\C-x\C-s" nil) ;; Old Save File
 (global-set-key "\C-x\C-f" nil) ;; Old Open File
+(global-set-key "\C-x\C-w" nil) ;; Old Save as
 (global-set-key "\C-x2" nil) ;; Old Open File
 (global-set-key "\C-x1" nil) ;; Old Open File
 (global-set-key "\C-xu" nil) ;; Old Open File

@@ -1,3 +1,7 @@
+(cua-mode t)
+(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+(setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
+
 ;; Hack Emacs to manage clipboard in a human way
 (setq transient-mark-mode t)  ;  makes the region act quite like the text "highlight" in many apps.
 (setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring
