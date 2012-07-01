@@ -2,7 +2,6 @@
 (require 'guancio_spell)
 (require 'guancio_yas)
 
-;; (load "whizzytex.el")
 (load "auctex.el" nil t t)
 
 ;; (require 'auto-complete-yasnippet)
@@ -46,9 +45,10 @@
 
 
 ;; TODO; Resize preview according with the zoom
-;; TODO: Enable yasnippet
-;; TODO: Enable yasnippet completition
 ;; TODO: Enable macro completition
+;; TODO: Enable reference/bib completition
+;; TODO: Enable whizzytex.el
+;; TODO: Investigate Inverse search
 
 ;; (defun flymake-get-tex-args (file-name)
 ;;   (list "chktex" (list "-q" "-v0" file-name)))

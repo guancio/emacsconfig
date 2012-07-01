@@ -68,10 +68,11 @@
 (global-set-key (kbd "M-<down>") 'other-window)
 (global-set-key (kbd "M-<up>")  'select-previous-window)
 
-(global-set-key [(meta shift up)] 'tabbar-backward-group)
-(global-set-key [(meta shift down)] 'tabbar-forward-group)
-(global-set-key [(meta shift left)] 'tabbar-backward-tab)
-(global-set-key [(meta shift right)] 'tabbar-forward-tab)
+;; We do not use tabbas anymore
+;; (global-set-key [(meta shift up)] 'tabbar-backward-group)
+;; (global-set-key [(meta shift down)] 'tabbar-forward-group)
+;; (global-set-key [(meta shift left)] 'tabbar-backward-tab)
+;; (global-set-key [(meta shift right)] 'tabbar-forward-tab)
 
 ;; Buffers
 (global-set-key "\C-b" 'ido-switch-buffer)

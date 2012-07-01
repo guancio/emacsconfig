@@ -1,7 +1,5 @@
 ; Add ~/.emacs.d to load-path
 (add-to-list 'load-path ".emacs.d")
-(add-to-list 'load-path "modules")
-
 
 (require 'guancio_custom)
 (require 'guancio_global_key)
@@ -17,4 +15,7 @@
 (require 'guancio_yas)
 
 (require 'guancio_latex)
+(require 'guancio_ledger)
+
+(require 'guancio_sc)
 
