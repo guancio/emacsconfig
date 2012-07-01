@@ -15,6 +15,8 @@
 (global-set-key (kbd "C-SPC") nil)
 
 
+(global-set-key "\M-w" nil) ;; ??
+
 
 ;; File Bindings
 (global-set-key "\C-o" 'ido-find-file) ;; Open a file

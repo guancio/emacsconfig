@@ -10,3 +10,5 @@
 (require 'guancio_copy_paste)
 
 (require 'guancio_clean_menu)
+
+(require 'guancio_spell)

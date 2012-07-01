@@ -145,6 +145,8 @@
 ;; (define-key menu-bar-tools-menu [spell]
 ;;   `(menu-item ,(purecopy "Spell Checking") ispell-menu-map))
 
+(define-key-after menu-bar-tools-menu [word-count] '("Count words in region" . count-words-region) 'spell)
+
 (define-key menu-bar-tools-menu [separator-prog] nil)
 (define-key menu-bar-tools-menu [semantic] nil)
 (define-key menu-bar-tools-menu [ede] nil)
