@@ -1,3 +1,4 @@
+(require 'popup)
 (require 'auto-complete)
 (require 'ispell)
 (require 'flyspell)
@@ -75,6 +76,11 @@ The word checked is the word at the mouse position."
     (goto-char save)
     ))
 
+;; Bug: I cannot close the popup
+;; Bug: I can not use the mouse
+;; Bug: I can not use page up/down
+(define-key popup-menu-keymap [esc] 'popup-close)
+
 (defun guancio-spell-menu ()
   "Pop up a menu of possible corrections for misspelled word before point."
   (interactive)
@@ -111,8 +117,20 @@ The word checked is the word at the mouse position."
 	    (error "Ispell: error in Ispell process"))
 	   (t
 	    ;; The word is incorrect, we have to propose a replacement.
-	    (flyspell-do-correct (popup-menu* (nth 2 poss))
-		     poss word cursor-location start end cursor-location)
+	    (let ((selected
+	    	   (popup-menu* 
+	    	    (cons 
+	    	     (popup-make-item "Close" :value 'guancio-popup-close)
+	    	     (nth 2 poss))
+	    	    )))
+	      (cond
+	       ((eq selected 'guancio-popup-close) t)
+	       (t 
+	      	(flyspell-do-correct
+	      	 selected
+	      	 poss word cursor-location start end cursor-location)
+	      	))
+	      )
 	    ))
 	  (ispell-pdict-save t)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
