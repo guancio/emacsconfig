@@ -1,3 +1,6 @@
+(require 'auto-complete)
+(require 'ispell)
+(require 'flyspell)
 (require 'dictem)
 (require 'guancio_autocomplete)
 
@@ -33,45 +36,12 @@ If a region is active (a phrase), lookup that phrase."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Ispell source for auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun ac-ispell-wrapper (word)
-  (let (suggestions ispell-filter)
-    ;; Now check spelling of word.
-    (ispell-send-string "%\n") ; put in verbose mode
-    (ispell-send-string (concat "^" word "\n")) ; lookup the word
-    ;; Wait until ispell has processed word.
-    (while (progn
-	     (accept-process-output ispell-process)
-	     (not (string= "" (car ispell-filter)))))
-    ;; Remove leading empty element
-    (setq ispell-filter (cdr ispell-filter))
-    ;; ispell process should return something after word is sent.
-    ;; Tag word as valid (i.e., skip) otherwise
-    (or ispell-filter
-	(setq ispell-filter '(*)))
-    (when (consp ispell-filter)
-      (setq suggestions (ispell-parse-output (car ispell-filter))))
-    (cond
-     ((or (eq suggestions t) (stringp suggestions))
-      (message "Ispell: %s is correct" word)
-      nil)
-     ((null suggestions)
-      (error "Ispell: error in Ispell process")
-      nil)
-     (t (car (cdr (cdr suggestions)))))))
 
 (defun ac-ispell-candidate ()
-  (let ((cursor-location (point))	; retain cursor location
-	(word (ispell-get-word nil))
-	start end poss new-word replace)
-    ;; De-structure return word info list.
-    (setq start (car (cdr word))
-    	  end (car (cdr (cdr word)))
-    	  word (car word)
-    	  suggestions (ac-ispell-wrapper word)
-    	  )
-     suggestions
-    )
-)
+  (let ((word (ispell-get-word nil "\\*")))
+    (setq word (car word))
+    (message word)
+    (lookup-words (concat word "*") ispell-complete-word-dict)))
 
 
 (defface ac-ispell-candidate-face
@@ -94,6 +64,58 @@ If a region is active (a phrase), lookup that phrase."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;Guancio fix word menu ;;;;;;;;;;;;;;;;;;;;;;
+(defun guancio-spell-mouse-menu (event)
+  "Pop up a menu of possible corrections for a misspelled word.
+The word checked is the word at the mouse position."
+  (interactive "e")
+  (let ((save (point)))
+    (mouse-set-point event)
+    (guancio-spell-menu)
+    (goto-char save)
+    ))
+
+(defun guancio-spell-menu ()
+  "Pop up a menu of possible corrections for misspelled word before point."
+  (interactive)
+  ;; use the correct dictionary
+  (flyspell-accept-buffer-local-defs)
+  (let ((cursor-location (point))
+	(word (flyspell-get-word nil)))
+    (if (consp word)
+	(let ((start (car (cdr word)))
+	      (end (car (cdr (cdr word))))
+	      (word (car word))
+	      poss ispell-filter)
+	  ;; now check spelling of word.
+	  (ispell-send-string "%\n")	;put in verbose mode
+	  (ispell-send-string (concat "^" word "\n"))
+	  ;; wait until ispell has processed word
+	  (while (progn
+		   (accept-process-output ispell-process)
+		   (not (string= "" (car ispell-filter)))))
+	  ;; Remove leading empty element
+	  (setq ispell-filter (cdr ispell-filter))
+	  ;; ispell process should return something after word is sent.
+	  ;; Tag word as valid (i.e., skip) otherwise
+	  (or ispell-filter
+	      (setq ispell-filter '(*)))
+	  (if (consp ispell-filter)
+	      (setq poss (ispell-parse-output (car ispell-filter))))
+	  (cond
+	   ((or (eq poss t) (stringp poss))
+	    ;; don't correct word
+	    t)
+	   ((null poss)
+	    ;; ispell error
+	    (error "Ispell: error in Ispell process"))
+	   (t
+	    ;; The word is incorrect, we have to propose a replacement.
+	    (flyspell-do-correct (popup-menu* (nth 2 poss))
+		     poss word cursor-location start end cursor-location)
+	    ))
+	  (ispell-pdict-save t)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; For highlighting the separator between the definitions found.
 ; This also creates hyperlink on database names.
@@ -139,6 +161,8 @@ If a region is active (a phrase), lookup that phrase."
 (define-key dictem-mode-map (kbd "C-<up>") 'dictem-previous-link)
 (define-key dictem-mode-map [(backspace)] 'dictem-last)
 
+(define-key flyspell-mode-map (kbd "S-<SPC>") 'guancio-spell-menu)
+(define-key flyspell-mouse-map [mouse-3] 'guancio-spell-mouse-menu)
 
 (setq dict-menu-map (make-sparse-keymap "Dictionary"))
 

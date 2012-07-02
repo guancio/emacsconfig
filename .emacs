@@ -17,5 +17,5 @@
 (require 'guancio_latex)
 (require 'guancio_ledger)
 
+(require 'guancio_org)
 (require 'guancio_sc)
-

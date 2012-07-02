@@ -10,6 +10,7 @@
 (define-key ac-complete-mode-map [escape] 'ac-stop)
 (define-key ac-complete-mode-map (kbd "C-SPC") 'ac-stop)
 
+(setq popup-use-optimized-column-computation nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                                         
 ;;; End Auto Completion                                                                                        
