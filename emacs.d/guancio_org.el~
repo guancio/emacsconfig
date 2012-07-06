@@ -1,0 +1,62 @@
+(require 'org)
+
+(defun guancio-org-menu ()
+  "Pop up a menu of possible corrections for misspelled word before point."
+  (interactive)
+  ;; use the correct dictionary
+  (let ((selected
+	 (popup-menu* 
+	  (list 
+	   (popup-make-item "Close" :value 'guancio-popup-close)
+	   (popup-make-item "TODO/DONE" :value 'org-shiftright)
+	   ))))
+    (cond
+     ((eq selected 'guancio-popup-close) t)
+     ((eq selected 'guancio-popup-todo) (org-todo))
+     (t t)
+     )
+    ))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (define-key org-mode-map [(shift left)] nil)
+	    (define-key org-mode-map [(shift right)] nil)
+	    (define-key org-mode-map [(shift up)] nil)
+	    (define-key org-mode-map [(shift down)] nil)
+	    (define-key org-mode-map [(control shift left)] nil)
+	    (define-key org-mode-map [(control shift right)] nil)
+	    (define-key org-mode-map [(control shift up)] nil)
+	    (define-key org-mode-map [(control shift down)] nil)
+	    
+	    (define-key org-mode-map (kbd "M-a") nil)
+
+	    (define-key org-mode-map "\C-a" nil)
+	    (define-key org-mode-map (kbd "M-<right>") nil)
+	    (define-key org-mode-map (kbd "M-<left>") nil)
+	    (define-key org-mode-map  (kbd "M-<down>") nil)
+	    (define-key org-mode-map (kbd "M-<up>") nil)
+
+	    (define-key org-mode-map (kbd "M-d") 'org-shiftright)
+	    (define-key org-mode-map (kbd "M-a") 'org-shiftleft)
+	    (define-key org-mode-map (kbd "M-w") 'org-shiftup)
+	    (define-key org-mode-map (kbd "M-s") 'org-shiftdown)
+
+	    (define-key org-mode-map (kbd "M-D") 'org-shiftmetaright)
+	    (define-key org-mode-map (kbd "M-A") 'org-shiftmetaleft)
+	    (define-key org-mode-map (kbd "M-W") 'org-shiftmetaup)
+	    (define-key org-mode-map (kbd "M-S") 'org-shiftmetadown)
+	    (turn-on-auto-fill)
+	    (flyspell-mode t)
+	    )
+	  )
+(setq org-log-done t)
+
+(setq org-agenda-files (list "~/Desktop/agenda.org"))
+
+(define-key global-map [f2] 'org-agenda)
+
+(setq org-enforce-todo-dependencies t)
+
+(provide 'guancio_org)

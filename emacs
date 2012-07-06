@@ -1,5 +1,8 @@
 ; Add ~/.emacs.d to load-path
 (add-to-list 'load-path ".emacs.d")
+(add-to-list 'load-path "~/.emacs.d/modules")
+(add-to-list 'load-path "~/.emacs.d/modules/popup-el")
+(add-to-list 'load-path "~/.emacs.d/modules/auto-complete")
 
 (require 'guancio_custom)
 (require 'guancio_global_key)
@@ -18,4 +21,6 @@
 (require 'guancio_ledger)
 
 (require 'guancio_org)
-(require 'guancio_sc)
+
+
+;; (require 'guancio_sc)

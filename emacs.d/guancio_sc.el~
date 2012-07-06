@@ -1,0 +1,3 @@
+(add-to-list 'load-path "modules/sunrise-commander")
+
+(provide 'guancio_sc)

@@ -1,6 +1,4 @@
 ;; Graphics stuff
-(add-to-list 'load-path "modules")
-
 
 (column-number-mode t)
 (setq inhibit-startup-screen t)
