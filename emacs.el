@@ -3,6 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/modules")
 (add-to-list 'load-path "~/.emacs.d/modules/popup-el")
 (add-to-list 'load-path "~/.emacs.d/modules/auto-complete")
+(add-to-list 'load-path "~/.emacs.d/modules/emacs-calfw")
 
 (require 'guancio_custom)
 (require 'guancio_global_key)

@@ -1,4 +1,6 @@
 (require 'org)
+(require 'popup)
+(require 'calfw-org)
 
 (defun guancio-org-menu ()
   "Pop up a menu of possible corrections for misspelled word before point."
@@ -121,6 +123,7 @@
 (setq org-agenda-files (list "~/Desktop/agenda.org"))
 
 (define-key global-map [f2] 'org-agenda)
+(define-key global-map [f3] 'cfw:open-org-calendar)
 
 (setq org-enforce-todo-dependencies t)
 
