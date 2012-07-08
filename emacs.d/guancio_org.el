@@ -176,12 +176,6 @@
 ))
 
 
-(custom-set-faces
- '(cfw:face-toolbar ((t :foreground "Steelblue4" :background "Steelblue4")))
- '(cfw:face-toolbar-button-off ((t :foreground "#d0bf8f" :weight bold :background "Steelblue4")))
- '(cfw:face-toolbar-button-on ((t :foreground "Gray10" :weight bold :background "Steelblue4"))))
-
-
 (define-key global-map [f2] 'org-agenda)
 (define-key global-map [f3] 'cfw:open-org-calendar)
 

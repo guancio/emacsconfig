@@ -1,5 +1,8 @@
 ;; Graphics stuff
 
+(set-default-font "DejaVu Sans Mono-14")
+;; -unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1
+
 (column-number-mode t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode t)
