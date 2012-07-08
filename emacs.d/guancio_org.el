@@ -119,12 +119,70 @@
 	    )
 	  )
 (setq org-log-done t)
-
+(setq org-enforce-todo-dependencies t)
 (setq org-agenda-files (list "~/Desktop/agenda.org"))
+
+
+(define-key cfw:calendar-mode-map "h" nil)
+(define-key cfw:calendar-mode-map "b" nil)
+(define-key cfw:calendar-mode-map "f" nil)
+(define-key cfw:calendar-mode-map "l" nil)
+
+(define-key cfw:calendar-mode-map "p" nil)
+(define-key cfw:calendar-mode-map "k" nil)
+(define-key cfw:calendar-mode-map [(control up)] 'cfw:navi-previous-week-command)
+
+(define-key cfw:calendar-mode-map "n" nil)
+(define-key cfw:calendar-mode-map "j" nil)
+(define-key cfw:calendar-mode-map [(control down)] 'cfw:navi-next-week-command)
+
+(define-key cfw:calendar-mode-map ">" nil)
+(define-key cfw:calendar-mode-map "<" nil)
+(define-key cfw:calendar-mode-map "." nil)
+(define-key cfw:calendar-mode-map "g" nil)
+(define-key cfw:calendar-mode-map [(control g)] 'cfw:navi-goto-date-command)
+
+(define-key cfw:calendar-mode-map [(up)] 'cfw:navi-previous-item-command)
+(define-key cfw:calendar-mode-map [(down)] 'cfw:navi-next-item-command)
+
+
+(define-key cfw:calendar-mode-map "D" nil)
+(define-key cfw:calendar-mode-map "d" 'cfw:change-view-day)
+(define-key cfw:calendar-mode-map "W" nil)
+(define-key cfw:calendar-mode-map "w" 'cfw:change-view-week)
+(define-key cfw:calendar-mode-map "T" nil)
+(define-key cfw:calendar-mode-map "W" 'cfw:change-view-two-week)
+(define-key cfw:calendar-mode-map "M" nil)
+(define-key cfw:calendar-mode-map "m" 'cfw:change-view-month)
+
+(easy-menu-define cfw:calendar-menu cfw:calendar-mode-map "Calendar"
+  '("Calendar"
+    ["Today" cfw:navi-goto-today-command t]
+    ["Go To" cfw:navi-goto-date-command t]
+    ["Day Prev" cfw:navi-previous-day-command t]
+    ["Day Next" cfw:navi-next-day-command t]
+    ["Week Prev" cfw:navi-previous-week-command t]
+    ["Week Next" cfw:navi-next-week-command t]
+    ["Month Prev" cfw:navi-previous-month-command t]
+    ["Month Next" cfw:navi-next-month-command t]
+    ("View"
+     ["Day" cfw:change-view-day t]
+     ["Week" cfw:change-view-week t]
+     ["2 Week" cfw:change-view-two-week t]
+     ["Month" cfw:change-view-month t]
+     )
+    ["Detail" cfw:org-open-agenda-day t]
+    ["Open" cfw:org-onclick t]
+))
+
+
+(custom-set-faces
+ '(cfw:face-toolbar ((t :foreground "Steelblue4" :background "Steelblue4")))
+ '(cfw:face-toolbar-button-off ((t :foreground "#d0bf8f" :weight bold :background "Steelblue4")))
+ '(cfw:face-toolbar-button-on ((t :foreground "Gray10" :weight bold :background "Steelblue4"))))
+
 
 (define-key global-map [f2] 'org-agenda)
 (define-key global-map [f3] 'cfw:open-org-calendar)
-
-(setq org-enforce-todo-dependencies t)
 
 (provide 'guancio_org)
