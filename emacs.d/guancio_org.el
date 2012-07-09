@@ -120,7 +120,7 @@
 	  )
 (setq org-log-done t)
 (setq org-enforce-todo-dependencies t)
-(setq org-agenda-files (list "~/Desktop/agenda.org"))
+(setq org-agenda-files (list "/media/data/Confs/private/agenda.org"))
 
 
 (define-key cfw:calendar-mode-map "h" nil)

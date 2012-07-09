@@ -4,6 +4,7 @@
 (add-to-list 'load-path "~/.emacs.d/modules/popup-el")
 (add-to-list 'load-path "~/.emacs.d/modules/auto-complete")
 (add-to-list 'load-path "~/.emacs.d/modules/emacs-calfw")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/sml-mode")
 
 (require 'guancio_custom)
 (require 'guancio_global_key)
@@ -23,5 +24,6 @@
 
 (require 'guancio_org)
 
+(require 'guancio_sml)
 
 ;; (require 'guancio_sc)

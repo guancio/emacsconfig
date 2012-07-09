@@ -42,4 +42,8 @@
 		(setq ac-sources (remove '(ac-source-yasnippet) ac-sources))
 	    ))))
 
+(setq yas/root-directory '("~/.emacs.d/snippets"
+			   "/usr/share/emacs/site-lisp/yasnippet/snippets"))
+(yas/reload-all)
+
 (provide 'guancio_yas)
