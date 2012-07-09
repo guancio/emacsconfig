@@ -1,5 +1,5 @@
 ; Add ~/.emacs.d to load-path
-(add-to-list 'load-path ".emacs.d")
+(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/modules")
 (add-to-list 'load-path "~/.emacs.d/modules/popup-el")
 (add-to-list 'load-path "~/.emacs.d/modules/auto-complete")
