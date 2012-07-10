@@ -41,6 +41,11 @@
 (require 'guancio_buffer)
 (require 'guancio_search)
 
+(require 'ottmode)
+
+
+(setq org-agenda-files (list "~/Desktop/todo.org"))
+
 ;; (require 'guancio_autocomplete)
 ;; (require 'guancio_spell)
 ;; (require 'guancio_copy_paste)
