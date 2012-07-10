@@ -5,13 +5,14 @@
 (defun ac-yasnippet-candidate ()
   (let ((table (yas/get-snippet-tables major-mode)))
     (if table
-      (let (candidates (list))
-            (mapcar (lambda (mode)          
-              (maphash (lambda (key value)    
-                (push key candidates))          
-              (yas/snippet-table-hash mode))) 
-            table)
-        (all-completions ac-prefix candidates)))))
+	(let (candidates (list))
+	  (mapcar (lambda (mode)          
+		    (maphash (lambda (key value)    
+			       (push key candidates))          
+			     (yas/snippet-table-hash mode))) 
+		  table)
+	  (all-completions ac-prefix candidates)))))
+
 
 (defface ac-yasnippet-candidate-face
   '((t (:background "sandybrown" :foreground "black")))
@@ -29,6 +30,7 @@
     (selection-face . ac-yasnippet-selection-face)) 
   "Source for Yasnippet.")
 
+
 ;; BUG: Do not remove yas from completition on unload
 ;; BUG: must remove ac if no source is used
 (add-hook 'yas/minor-mode-hook
@@ -42,8 +44,19 @@
 		(setq ac-sources (remove '(ac-source-yasnippet) ac-sources))
 	    ))))
 
-(setq yas/root-directory '("~/.emacs.d/snippets"
-			   "/usr/share/emacs/site-lisp/yasnippet/snippets"))
+(if (on-guancio-studio-debian-p)
+    (setq yas/root-directory '("~/.emacs.d/snippets"
+			       "/usr/share/emacs/site-lisp/yasnippet/snippets"))
+)
+(if (or (on-kth-omsk-p)
+	(on-kth-tcs20-p))
+    (progn
+      (setq yas/snippet-dirs '("~/emacsconfig/emacs.d/snippets"
+			       "~/emacsconfig/emacs.d/modules/yasnippet/snippets"))
+      (setq yas/trigger-key "C-SPC")
+      )
+)
+
 (yas/reload-all)
 
 (provide 'guancio_yas)

@@ -2,7 +2,11 @@
 (require 'auto-complete)
 (require 'ispell)
 (require 'flyspell)
-(require 'dictem)
+
+(if (on-guancio-studio-debian-p)
+    (require 'dictem)
+)
+
 (require 'guancio_autocomplete)
 
 ;; Spell Checking
@@ -173,11 +177,14 @@ The word checked is the word at the mouse position."
 
 
 ;; I cannot understant wich words is found
-(global-set-key "\M-d" 'dictem-run-define)
-(global-set-key (kbd "M-w M-i M-k M-i") 'lookup-word-definition)
-(define-key dictem-mode-map (kbd "C-<down>") 'dictem-next-link)
-(define-key dictem-mode-map (kbd "C-<up>") 'dictem-previous-link)
-(define-key dictem-mode-map [(backspace)] 'dictem-last)
+
+(if (on-guancio-studio-debian-p)
+    (progn
+      (global-set-key "\M-d" 'dictem-run-define)
+      (global-set-key (kbd "M-w M-i M-k M-i") 'lookup-word-definition)
+      (define-key dictem-mode-map (kbd "C-<down>") 'dictem-next-link)
+      (define-key dictem-mode-map (kbd "C-<up>") 'dictem-previous-link)
+      (define-key dictem-mode-map [(backspace)] 'dictem-last)))
 
 (define-key flyspell-mode-map (kbd "S-<SPC>") 'guancio-spell-menu)
 (define-key flyspell-mouse-map [mouse-3] 'guancio-spell-mouse-menu)

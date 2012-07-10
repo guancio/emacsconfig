@@ -1,10 +1,36 @@
-; Add ~/.emacs.d to load-path
-(add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/modules")
-(add-to-list 'load-path "~/.emacs.d/modules/popup-el")
-(add-to-list 'load-path "~/.emacs.d/modules/auto-complete")
-(add-to-list 'load-path "~/.emacs.d/modules/emacs-calfw")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/sml-mode")
+(defun on-kth-tcs20-p ()
+  (string-equal system-name "tcs20.csc.kth.se")
+)
+(defun on-kth-omsk-p ()
+  (string-equal system-name "omsk.csc.kth.se")
+)
+(defun on-guancio-studio-debian-p ()
+  nil
+)
+
+(if (on-kth-tcs20-p)
+   (setq guancio-module-path "~/emacsconfig/emacs.d")
+)
+(if (on-kth-omsk-p)
+   (setq guancio-module-path "~/emacsconfig/emacs.d")
+)
+
+
+(add-to-list 'load-path guancio-module-path)
+(add-to-list 'load-path (format "%s/%s" guancio-module-path "modules"))
+(add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "popup-el"))
+(add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "auto-complete"))
+(add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "emacs-calfw"))
+(add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "sml-mode"))
+
+(if (on-kth-tcs20-p)
+    (add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "yasnippet"))
+)
+(if (on-kth-omsk-p)
+    (progn
+      (add-to-list 'load-path (format "%s/modules/%s" guancio-module-path "yasnippet"))
+      (add-to-list 'load-path "/opt/hol4.k.7-src/tools")
+  ))
 
 (require 'guancio_custom)
 (require 'guancio_global_key)
@@ -19,11 +45,21 @@
 (require 'guancio_spell)
 (require 'guancio_yas)
 
-(require 'guancio_latex)
-(require 'guancio_ledger)
+(if (or (on-guancio-studio-debian-p)
+	(on-kth-tcs20-p))
+    (require 'guancio_latex)
+)
+
+(if (on-guancio-studio-debian-p)
+    (require 'guancio_ledger)
+)
 
 (require 'guancio_org)
 
 (require 'guancio_sml)
+
+(if (on-kth-omsk-p)
+    (require 'guancio_hol)
+)
 
 ;; (require 'guancio_sc)
