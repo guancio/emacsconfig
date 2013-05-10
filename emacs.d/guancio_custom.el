@@ -25,5 +25,7 @@
 ;; Disable the tollbars
 (tool-bar-mode -1)
 
+(if (not window-system)
+    (menu-bar-mode -1))
 
 (provide 'guancio_custom)

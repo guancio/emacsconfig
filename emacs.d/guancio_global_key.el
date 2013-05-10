@@ -19,13 +19,25 @@
 
 
 ;; File Bindings
-(global-set-key "\C-o" 'ido-find-file) ;; Open a file
-(global-set-key "\C-s" 'save-buffer) ;; Save the current file (buffer)
-(global-set-key "\C-r" 'guancio-revert-buffer) ;; Revert (reload from disk) the current buffer
-(global-set-key [(control shift s)] 'ido-write-file) ;; Save As
-(global-set-key [(control shift w)] 'guancio-close-current-buffer) ;; Close the current buffer
-(global-set-key [(control shift n)] 'guancio-new-empty-buffer) ;; New empty buffer
-(global-set-key "\M-q" 'save-buffers-kill-terminal) ;; Quit Emacs
+(if window-system
+    (progn
+      (global-set-key "\C-o" 'ido-find-file) ;; Open a file
+      (global-set-key "\C-s" 'save-buffer) ;; Save the current file (buffer)
+      (global-set-key "\C-r" 'guancio-revert-buffer) ;; Revert (reload from disk) the current buffer
+      (global-set-key [(control shift s)] 'ido-write-file) ;; Save As
+      (global-set-key [(control shift w)] 'guancio-close-current-buffer) ;; Close the current buffer
+      (global-set-key [(control shift n)] 'guancio-new-empty-buffer) ;; New empty buffer
+      (global-set-key "\M-q" 'save-buffers-kill-terminal) ;; Quit Emacs
+      )
+  (progn
+    (global-set-key "\M-o" 'ido-find-file) ;; Open a file
+    (global-set-key "\M-s" 'save-buffer) ;; Save the current file (buffer)
+    (global-set-key "\M-r" 'guancio-revert-buffer) ;; Revert (reload from disk) the current buffer
+    (global-set-key [(control meta s)] 'ido-write-file) ;; Save As
+    (global-set-key [(control meta w)] 'guancio-close-current-buffer) ;; Close the current buffer
+    (global-set-key [(control meta n)] 'guancio-new-empty-buffer) ;; New empty buffer
+    (global-set-key "\M-q" 'save-buffers-kill-terminal) ;; Quit Emacs       
+))
 
 ;; Edit
 (global-set-key "\C-a" 'mark-whole-buffer) ;; Select All
@@ -34,7 +46,7 @@
 (global-set-key "\C-g" 'goto-line) ;; Go to line
 (global-set-key "\M-c" 'comment-or-uncomment-region) ;; Toggle region comment
 
-;; Edit -> Search
+;; ;; Edit -> Search
 (global-set-key "\C-f" 'isearch-forward) ;; Search
 (global-set-key [(control shift f)] 'isearch-backward) ;; Search backward
 (global-set-key "\M-f" 'isearch-forward-regexp) ;; Search regexp
@@ -48,25 +60,42 @@
 (define-key isearch-mode-map [(control shift a)] 'guancio-isearch-grep) ;; Find all occurrence in th ecurrent directory
 
 ;; Fonts
-(global-set-key [(control =)] (lambda () (interactive)
+(if window-system
+    (progn
+      (global-set-key [(control =)] (lambda () (interactive)
                                       (text-scale-increase 1)))
-(global-set-key [(control -)] (lambda () (interactive)
+      (global-set-key [(control -)] (lambda () (interactive)
                                       (text-scale-decrease 1)))
-(global-set-key (kbd "C-\)") (lambda () (interactive)
+      (global-set-key (kbd "C-\)") (lambda () (interactive)
                                       (text-scale-increase 0)))
+))
 
 
 ;; Frames and Windows
-(global-set-key "\C-n" 'detach-window)
-(global-set-key "\C-t" 'split-window-horizontally)
-(global-set-key "\C-q" 'delete-frame)
-(global-set-key "\C-w" 'delete-window)
-(global-set-key [(control escape)] 'delete-other-windows)
+(if window-system
+    (progn
+      (global-set-key "\C-n" 'detach-window)
+      (global-set-key "\C-t" 'split-window-horizontally)
+      (global-set-key "\C-q" 'delete-frame)
+      (global-set-key "\C-w" 'delete-window)
+      (global-set-key [(control escape)] 'delete-other-windows)
 
-(global-set-key (kbd "M-<right>") 'other-window)
-(global-set-key (kbd "M-<left>")  'select-previous-window)
-(global-set-key (kbd "M-<down>") 'other-window)
-(global-set-key (kbd "M-<up>")  'select-previous-window)
+      (global-set-key (kbd "M-<right>") 'other-window)
+      (global-set-key (kbd "M-<left>")  'select-previous-window)
+      (global-set-key (kbd "M-<down>") 'other-window)
+      (global-set-key (kbd "M-<up>")  'select-previous-window)
+      )
+  (progn
+    (global-set-key "\M-t" 'split-window-horizontally)
+    (global-set-key "\M-y" 'split-window-vertically)
+    (global-set-key "\M-w" 'delete-window)
+    (global-set-key "\M-e" 'delete-other-windows)
+    
+    (global-set-key "\M-/" 'other-window)
+    (global-set-key "\M-,"  'select-previous-window)
+    (global-set-key "\M-." 'other-window)
+    (global-set-key "\M-l"  'select-previous-window)    
+    ))
 
 ;; We do not use tabbas anymore
 ;; (global-set-key [(meta shift up)] 'tabbar-backward-group)
@@ -76,11 +105,38 @@
 
 ;; Buffers
 (global-set-key "\C-b" 'ido-switch-buffer)
-(global-set-key [(control shift b)] 'ibuffer)
+(if window-system
+    (global-set-key [(control shift b)] 'ibuffer)
+  (global-set-key [(control l)] 'ibuffer)
+)
 
 ;; External processes
 (global-set-key "\M-b" 'smart-compile)
-(global-set-key "\M-s" 'speedbar)
+(if window-system
+    (global-set-key "\M-s" 'speedbar))
 
+(if (not window-system)
+    (global-set-key "\M-m" 'menu-bar-open))
+
+;; fix cua mode dor the terminal
+(if (not window-system)
+    (progn
+      (define-key input-decode-map "\e[1;2D" [S-left])  
+      (define-key input-decode-map "\e[1;2C" [S-right])
+      (define-key input-decode-map "\e[1;2B" [S-down])
+      (define-key input-decode-map "\e[1;2A" [S-up])
+      (define-key input-decode-map "\e[1;3D" [home])
+      (define-key input-decode-map "\e[1;3C" [end])
+      (define-key input-decode-map "\e[1;4D" [S-home])
+      (define-key input-decode-map "\e[1;4C" [S-end])
+      (define-key input-decode-map "\e[1;5D" [C-left])
+      (define-key input-decode-map "\e[1;5C" [C-right])
+      (define-key input-decode-map "\e[1;5B" [C-down])
+      (define-key input-decode-map "\e[1;5A" [C-up])
+      (define-key input-decode-map "\e[1;6D" [S-C-left])
+      (define-key input-decode-map "\e[1;6C" [S-C-right])
+      (define-key input-decode-map "\e[1;6B" [S-C-down])
+      (define-key input-decode-map "\e[1;6A" [S-C-up])
+      ))
 
 (provide 'guancio_global_key)
