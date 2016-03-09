@@ -253,6 +253,7 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (cua-mode)
   ;; (menu-bar-mode)
+  (pdf-tools-install)
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   (add-hook 'pdf-view-mode-hook
             '(lambda ()
@@ -279,12 +280,38 @@ layers configuration. You are free to put any user code."
   ;; Reconvert
   (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode "r" 'revert-buffer)
 
+  ;; Latex stuff
+  (defun TeX-guancio-view ()
+    "Start a viewer without confirmation.
+The viewer is started either on region or master file,
+depending on the last command issued."
+    (interactive)
+    (split-window-right-and-focus)
+    (let ((output-file (TeX-active-master (TeX-output-extension))))
+      (find-file output-file)
+      ))
+
   ;; synctex
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode "o" 'pdf-sync-forward-search)
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode "v" 'TeX-guancio-view)
+
+
 
   ;; Shell
   (spacemacs/set-leader-keys
     "at"  'ansi-term)
+
+  (defun guancio-shrink ()
+    "Start a viewer without confirmation.
+The viewer is started either on region or master file,
+depending on the last command issued."
+    (interactive)
+    (shrink-window-horizontally 1)
+    (spacemacs/window-manipulation-micro-state))
+
+  (spacemacs/set-leader-keys
+    "w["  'guancio-shrink)
+
   )
 
 
