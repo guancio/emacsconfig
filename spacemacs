@@ -33,7 +33,7 @@ values."
      ;; (shell :variables
      ;;         shell-default-position 'full
      ;;         shell-default-term-shell "/bin/bash")
-     spell-checking
+     (spell-checking :variables spell-checking-enable-auto-dictionary t)
      (latex :variables latex-enable-auto-fill t)
      ;; syntax-checking
      ;; version-control
@@ -312,6 +312,8 @@ depending on the last command issued."
 
   (spacemacs/set-leader-keys
     "w["  'guancio-shrink)
+
+  
 
   )
 
